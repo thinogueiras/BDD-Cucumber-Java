@@ -1,13 +1,10 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Assert;
-
+import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
@@ -48,21 +45,25 @@ public class AprenderCucumber {
 	
 	Date entrega = new Date();
 	
-	@Given("^que a entrega é dia (\\d+)/(\\d+)/(\\d+)$")
-	public void queAEntregaÉDia(int dia, int mes, int ano) throws Throwable {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(calendar.DAY_OF_MONTH, dia);
-		calendar.set(calendar.MONTH, mes - 1);
-		calendar.set(calendar.YEAR, ano);
-		entrega = calendar.getTime();
+	@Given("^que a entrega é dia (.*)$")
+	public void queAEntregaÉDia(@Transform(DateConverter.class) Date data) throws Throwable {
+		entrega = data;
+		System.out.println(entrega);
 	    
 	}
 
-	@When("^a entrega atrasar em (\\d+) dias$")
-	public void aEntregaAtrasarEmDias(int arg1) throws Throwable {
+	@When("^a entrega atrasar em (\\d+) (dia|dias|mes|meses)$")
+	public void aEntregaAtrasarEmDias(int arg1, String tempo) throws Throwable {
 	    Calendar calendar = Calendar.getInstance();
 	    calendar.setTime(entrega);
-	    calendar.add(calendar.DAY_OF_MONTH, arg1);
+	    if(tempo.equals("dias"))
+	    {
+	    	calendar.add(calendar.DAY_OF_MONTH, arg1);
+	    }
+	    if(tempo.equals("meses"))
+	    {
+	    	calendar.add(calendar.MONTH, arg1);	    		    	
+	    }
 	    entrega = calendar.getTime();
 	}
 
@@ -71,6 +72,36 @@ public class AprenderCucumber {
 	    DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	    String dataFormatada = format.format(entrega);
 	    assertEquals(data, dataFormatada);
+	}
+	
+	@Given("^que o ticket( especial)? é A.(\\d{3})$")
+	public void queOTicketÉAF(String tipo, String arg1) throws Throwable {
+	    
+	}
+
+	@Given("^que o valor da passagem é R\\$ (.*)$")
+	public void queOValorDaPassagemÉR$(Double valor) throws Throwable {
+	    System.out.println(valor);
+	}
+
+	@Given("^que o nome do passageiro é \"(.{5,20})\"$")
+	public void queONomeDoPassageiroÉ(String arg1) throws Throwable {
+	    
+	}
+
+	@Given("^que o telefone do passageiro é (9\\d{3}-\\d{4})$")
+	public void queOTelefoneDoPassageiroÉ(String telefone) throws Throwable {
+	   
+	}
+
+	@When("^criar os steps$")
+	public void criarOsSteps() throws Throwable {
+	    
+	}
+
+	@Then("^o teste vai funcionar$")
+	public void oTesteVaiFuncionar() throws Throwable {
+	    
 	}
 
 
