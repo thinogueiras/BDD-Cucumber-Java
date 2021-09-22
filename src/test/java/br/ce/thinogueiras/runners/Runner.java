@@ -7,9 +7,9 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/resources/features/aprender_cucumber.feature",
+		features = "src/test/resources/features/alugar_filme.feature",
 		glue = "br.ce.thinogueiras.steps",
-		tags = {"@sprint1, @sprint2"},
+		tags = {},
 		plugin = "pretty", 
 		monochrome = true, 
 		snippets = SnippetType.CAMELCASE,
