@@ -2,6 +2,8 @@ package br.ce.thinogueiras.steps;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import br.ce.thinogueiras.entities.Filme;
 import br.ce.thinogueiras.entities.RegistroAluguel;
 import br.ce.thinogueiras.services.AluguelService;
+import br.ce.thinogueiras.utils.DateUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,6 +23,8 @@ public class AlugarFilmeSteps
 	private Filme filme;
 	private AluguelService aluguelService = new AluguelService();
 	private RegistroAluguel registroAluguel;
+	private String erro;
+	private String tipoAluguel;
 	
 	@Given("^um filme com estoque de (\\d+) unidades$")
 	public void umFilmeComEstoqueDeUnidades(int arg1) throws Throwable
@@ -37,7 +42,15 @@ public class AlugarFilmeSteps
 	@When("^alugar$")
 	public void alugar() throws Throwable 
 	{
-		registroAluguel = aluguelService.alugar(filme);
+		try
+		{
+			registroAluguel = aluguelService.alugar(filme, tipoAluguel);
+			
+		}
+		catch(RuntimeException e)
+		{
+			erro = e.getMessage();
+		};
 	}
 
 	@Then("^o preço do aluguel será R\\$ (\\d+)$")
@@ -45,25 +58,39 @@ public class AlugarFilmeSteps
 	{
 	    assertEquals(arg1, registroAluguel.getPrecoAluguel());
 	}
-
-	@And("^a data de entrega será no dia seguinte$")
-	public void aDataDeEntregaSeráNoDiaSeguinte() throws Throwable 
-	{
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, 1);
-		
-		Date dataRetorno = registroAluguel.getDataEntrega();
-		Calendar calDataRetorno = Calendar.getInstance();
-		calDataRetorno.setTime(dataRetorno);
-		
-		assertEquals(calendar.get(Calendar.DAY_OF_MONTH), calDataRetorno.get(Calendar.DAY_OF_MONTH));
-		assertEquals(calendar.get(Calendar.MONTH), calDataRetorno.get(Calendar.MONTH));
-		assertEquals(calendar.get(Calendar.YEAR), calDataRetorno.get(Calendar.YEAR));
-	}
-
+	
 	@And("^o estoque do filme será (\\d+) unidade$")
 	public void oEstoqueDoFilmeSeráUnidade(int arg1) throws Throwable 
 	{
 	    assertEquals(arg1, filme.getEstoque());
+	}		
+
+	@Then("^não será possível por falta de estoque$")
+	public void nãoSeráPossívelPorFaltaDeEstoque() throws Throwable
+	{
+		assertEquals("Filme sem estoque", erro);
+	}
+	
+	@Given("^que o tipo do aluguel seja (.*)$")
+	public void queOTipoDoAluguelSejaExtendido(String tipo) throws Throwable 
+	{
+		tipoAluguel = tipo;
+	}
+
+	@Then("^a data de entrega será em (\\d+) dias?$")
+	public void aDataDeEntregaSeráEmDias(int arg1) throws Throwable 
+	{
+		Date dataEsperada = DateUtils.obterDataDiferencaDias(arg1);
+		Date dataReal = registroAluguel.getDataEntrega();
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		
+		assertEquals(dateFormat.format(dataEsperada), dateFormat.format(dataReal));
+	}
+
+	@Then("^a pontuação recebida será de (\\d+) pontos?$")
+	public void aPontuaçãoRecebidaSeráDePontos(int arg1) throws Throwable 
+	{
+		assertEquals(arg1, registroAluguel.getPontuacao());
 	}
 }
