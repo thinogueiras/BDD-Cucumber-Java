@@ -6,13 +6,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 import org.junit.Assert;
 
 import br.ce.thinogueiras.entities.Filme;
 import br.ce.thinogueiras.entities.RegistroAluguel;
+import br.ce.thinogueiras.enums.TipoAluguel;
 import br.ce.thinogueiras.services.AluguelService;
 import br.ce.thinogueiras.utils.DateUtils;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,7 +27,20 @@ public class AlugarFilmeSteps
 	private AluguelService aluguelService = new AluguelService();
 	private RegistroAluguel registroAluguel;
 	private String erro;
-	private String tipoAluguel;
+	private TipoAluguel tipoAluguel;
+	
+	@Given("^um filme$")
+	public void umFilme(DataTable table) throws Throwable
+	{
+	    Map<String, String> map = table.asMap(String.class, String.class);
+	    filme = new Filme();
+	    filme.setEstoque(Integer.parseInt(map.get("estoque")));
+	    filme.setAluguel(Integer.parseInt(map.get("preco")));
+	    String tipo = map.get("tipo");
+	    tipoAluguel = tipo.equals("comum")? TipoAluguel.COMUM: 
+			tipo.equals("extendido")? TipoAluguel.EXTENDIDO: 
+			TipoAluguel.SEMANAL;
+	}
 	
 	@Given("^um filme com estoque de (\\d+) unidades$")
 	public void umFilmeComEstoqueDeUnidades(int arg1) throws Throwable
@@ -72,9 +88,11 @@ public class AlugarFilmeSteps
 	}
 	
 	@Given("^que o tipo do aluguel seja (.*)$")
-	public void queOTipoDoAluguelSejaExtendido(String tipo) throws Throwable 
+	public void queOTipoDoAluguelSeja(String tipo) throws Throwable 
 	{
-		tipoAluguel = tipo;
+		tipoAluguel = tipo.equals("comum")? TipoAluguel.COMUM: 
+			tipo.equals("extendido")? TipoAluguel.EXTENDIDO: 
+			TipoAluguel.SEMANAL;
 	}
 
 	@Then("^a data de entrega será em (\\d+) dias?$")
