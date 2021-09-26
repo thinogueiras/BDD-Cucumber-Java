@@ -9,8 +9,11 @@ public class AluguelService
 {
 	public RegistroAluguel alugar(Filme filme, TipoAluguel tipoAluguel)
 	{
-		if(filme.getEstoque() == 0) 
+		if(filme.getEstoque() <= 0) 
 			throw new RuntimeException("Filme sem estoque");
+		
+		else if(filme.getAluguel() <= 0) 
+			throw new RuntimeException("Filme sem preço");
 		
 		RegistroAluguel registroAluguel = new RegistroAluguel();
 		

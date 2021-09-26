@@ -1,5 +1,9 @@
 Feature: Aprender Cucumber
 
+	Como um aluno
+	Eu quero aprender cucumber
+	Para ganhar mais conhecimento em automação de testes
+
 @sprint1 @critical
 Scenario: Deve executar especificação
 	Given que criei o arquivo corretamente

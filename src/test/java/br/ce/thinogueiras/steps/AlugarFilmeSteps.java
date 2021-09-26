@@ -37,7 +37,8 @@ public class AlugarFilmeSteps
 	    filme.setEstoque(Integer.parseInt(map.get("estoque")));
 	    filme.setAluguel(Integer.parseInt(map.get("preco")));
 	    String tipo = map.get("tipo");
-	    tipoAluguel = tipo.equals("comum")? TipoAluguel.COMUM: 
+	    tipoAluguel = 
+	    	tipo.equals("comum")? TipoAluguel.COMUM: 
 			tipo.equals("extendido")? TipoAluguel.EXTENDIDO: 
 			TipoAluguel.SEMANAL;
 	}
@@ -85,6 +86,12 @@ public class AlugarFilmeSteps
 	public void nãoSeráPossívelPorFaltaDeEstoque() throws Throwable
 	{
 		assertEquals("Filme sem estoque", erro);
+	}
+	
+	@Then("^não será possível por falta de preço$")
+	public void nãoSeráPossívelPorFaltaDePreço() throws Throwable
+	{
+		assertEquals("Filme sem preço", erro);
 	}
 	
 	@Given("^que o tipo do aluguel seja (.*)$")
