@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -78,4 +80,38 @@ public class InserirContaSteps
 		String texto = driver.findElement(By.xpath("//div[@class='alert alert-success']")).getText();
 		assertEquals("Conta adicionada com sucesso!", texto);
 	}
+	
+	@Then("^sou notificado que o nome da conta é obrigatório$")
+	public void souNotificadoQueONomeDaContaÉObrigatório() throws Throwable
+	{
+		String texto = driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
+		assertEquals("Informe o nome da conta", texto);		
+	}
+	
+	@Then("^sou notificado que já existe uma conta com esse nome$")
+	public void souNotificadoQueJáExisteUmaContaComEsseNome() throws Throwable
+	{
+		String texto = driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
+		assertEquals("Já existe uma conta com esse nome!", texto);
+	}
+	
+	@Then("^recebo a mensagem \"([^\"]*)\"$")
+	public void receboAMensagem(String arg1) throws Throwable
+	{
+		String texto = driver.findElement(By.xpath("//div[starts-with(@class, 'alert alert-')]")).getText();
+		assertEquals(arg1, texto);
+	}
+	
+	@Before
+	public void iniciar()
+	{
+		System.out.println("Começando aqui!!!");
+	}
+	
+	@After
+	public void closeBrowser() 
+	{
+		driver.quit();
+		System.out.println("Terminando aqui!!!");
+	}	
 }
