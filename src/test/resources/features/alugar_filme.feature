@@ -1,4 +1,4 @@
-@ignore
+@unitários
 Feature: Alugar filme
 
 	Como um usuário

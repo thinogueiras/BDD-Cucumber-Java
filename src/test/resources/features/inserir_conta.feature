@@ -1,3 +1,4 @@
+@funcionais
 Feature: Cadastro de contas
 
 	Como um usuário 
@@ -6,8 +7,8 @@ Feature: Cadastro de contas
 
 Background:
 	Given que estou acessando a aplicação
-	When informo o usuário ""
-	And a senha ""
+	When informo o usuário "thiagonogueira@hotmail.com.br"
+	And a senha "625836"
 	And seleciono entrar
 	Then visualizo a página inicial
 	When seleciono Contas

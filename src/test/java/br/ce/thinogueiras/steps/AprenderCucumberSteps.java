@@ -2,19 +2,17 @@ package br.ce.thinogueiras.steps;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static org.junit.Assert.assertEquals;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import cucumber.api.Transform;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
-import cucumber.api.java.en.Then;
-import br.ce.thinogueiras.converters.DateConverter;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class AprenderCucumberSteps {
-	
-	private Date entrega = new Date();	
 	
 	@Given("^que criei o arquivo corretamente$")
 	public void queCrieiOArquivoCorretamente() throws Throwable
@@ -52,10 +50,12 @@ public class AprenderCucumberSteps {
 	public void oValorDoContadorSerá(int arg1) throws Throwable
 	{	    
 	    assertEquals(arg1, contador);	    
-	}
+	}	
 	
-	@Given("^que a entrega é dia (.*)$")
-	public void queAEntregaÉDia(@Transform(DateConverter.class) Date data) throws Throwable {
+	Date entrega = new Date();
+	
+	@Given("que a entrega é dia {data}")
+	public void queAEntregaÉDia(Date data) throws Throwable {
 		entrega = data;	
 	}
 

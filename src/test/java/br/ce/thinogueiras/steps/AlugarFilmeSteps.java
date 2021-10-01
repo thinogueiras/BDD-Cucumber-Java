@@ -4,22 +4,20 @@ import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
-import org.junit.Assert;
 
 import br.ce.thinogueiras.entities.Filme;
 import br.ce.thinogueiras.entities.RegistroAluguel;
 import br.ce.thinogueiras.enums.TipoAluguel;
 import br.ce.thinogueiras.services.AluguelService;
 import br.ce.thinogueiras.utils.DateUtils;
-import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
 
 public class AlugarFilmeSteps 
 {
