@@ -26,7 +26,7 @@ public class RunnerFuncionalTest
 	@BeforeClass
 	public static void resetDB()
 	{
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\thiago.santos\\Selenium-Drivers\\Chrome\\chromedriver.exe");		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\thiago.santos\\Selenium-Drivers\\chromedriver.exe");		
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://seubarriga.wcaquino.me/");
 		driver.findElement(By.id("email")).sendKeys("thiagonogueira@hotmail.com.br");

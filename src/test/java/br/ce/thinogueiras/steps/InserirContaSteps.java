@@ -25,7 +25,7 @@ public class InserirContaSteps {
 	@Given("^que estou acessando a aplicação$")
 	public void queEstouAcessandoAAplicação() throws Throwable {
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\thiago.santos\\Selenium-Drivers\\Chrome\\chromedriver.exe");
+				"C:\\Users\\thiago.santos\\Selenium-Drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://seubarriga.wcaquino.me/");
 	}
