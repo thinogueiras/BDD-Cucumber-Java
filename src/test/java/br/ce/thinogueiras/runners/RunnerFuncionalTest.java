@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -26,8 +27,10 @@ public class RunnerFuncionalTest
 	@BeforeClass
 	public static void resetDB()
 	{
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\thiago.santos\\Selenium-Drivers\\chromedriver.exe");		
-		WebDriver driver = new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\thiago.santos\\BrowserDriversSelenium\\chromedriver.exe");
+		ChromeOptions options = new ChromeOptions();
+		options.setHeadless(true);
+		WebDriver driver = new ChromeDriver(options);
 		driver.get("https://seubarriga.wcaquino.me/");
 		driver.findElement(By.id("email")).sendKeys("thiagonogueira@hotmail.com.br");
 		driver.findElement(By.id("senha")).sendKeys("625836");

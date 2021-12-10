@@ -14,7 +14,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,7 +24,7 @@ public class InserirContaSteps {
 	@Given("^que estou acessando a aplicação$")
 	public void queEstouAcessandoAAplicação() throws Throwable {
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\thiago.santos\\Selenium-Drivers\\chromedriver.exe");
+				"C:\\Users\\thiago.santos\\BrowserDriversSelenium\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://seubarriga.wcaquino.me/");
 	}

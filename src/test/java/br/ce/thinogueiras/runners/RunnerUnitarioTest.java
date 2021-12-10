@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/features/",
 		glue = {"br.ce.thinogueiras.steps", "br.ce.thinogueiras.config"},
-		tags = {"@unitários", "not @ignore"},
+		tags = {"@unitários"},
 		plugin = {"pretty", "html:target/report-html", "json:target/report.json"}, 
 		monochrome = true, 
 		snippets = SnippetType.CAMELCASE,
